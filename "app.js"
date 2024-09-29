@@ -1,0 +1,44 @@
+function App() {  
+    const [date, setDate] = React.useState('');  
+    const [startTime, setStartTime] = React.useState('');  
+    const [endTime, setEndTime] = React.useState('');  
+    const [participants, setParticipants] = React.useState('');  
+    const [timeSlots, setTimeSlots] = React.useState([]);  
+
+    const addTimeSlot = () => {  
+        if (date && startTime && endTime) {  
+            setTimeSlots([...timeSlots, { date, startTime, endTime, participants }]);  
+            setDate('');  
+            setStartTime('');  
+            setEndTime('');  
+            setParticipants('');  
+        }  
+    };  
+
+    const generateText = () => {  
+        return timeSlots.map(slot =>   
+            `Date: ${slot.date}\nTime: ${slot.startTime} - ${slot.endTime}\nParticipants: ${slot.participants || 'None'}\n\n`  
+        ).join('');  
+    };  
+
+    return (  
+        <div>  
+            <h1>Available Time Collector</h1>  
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />  
+            <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />  
+            <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />  
+            <input type="text" value={participants} onChange={(e) => setParticipants(e.target.value)} placeholder="Participants (optional)" />  
+            <button onClick={addTimeSlot}>Add Time Slot</button>  
+            <ul>  
+                {timeSlots.map((slot, index) => (  
+                    <li key={index}>  
+                        {slot.date} {slot.startTime} - {slot.endTime} {slot.participants && `(${slot.participants})`}  
+                    </li>  
+                ))}  
+            </ul>  
+            <textarea readOnly value={generateText()} rows="10" cols="50" />  
+        </div>  
+    );  
+}  
+
+ReactDOM.render(<App />, document.getElementById('root'));
