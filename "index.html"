@@ -13,7 +13,6 @@
 </head>  
 <body>  
     <h1>Available Time Collector</h1>  
-    <p id="debug">If you can see this, HTML is working correctly.</p>  
     <input type="date" id="date">  
     <input type="time" id="startTime">  
     <input type="time" id="endTime">  
@@ -21,10 +20,6 @@
     <button onclick="addTimeSlot()">Add Time Slot</button>  
     <ul id="timeSlotList"></ul>  
     <textarea id="output" rows="10" cols="50" readonly></textarea>  
-    <script>  
-        console.log("Inline script is running");  
-        document.getElementById('debug').textContent += " Inline script executed.";  
-    </script>  
     <script src="app.js"></script>  
 </body>  
-</html>
+</html>  
