@@ -1,3 +1,4 @@
+console.log("App.js is loaded!");  
 let timeSlots = [];  
 
 function addTimeSlot() {  
