@@ -4,9 +4,6 @@
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Available Time Collector</title>  
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>  
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>  
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>  
     <style>  
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }  
         input, button { margin: 5px 0; padding: 5px; }  
@@ -15,7 +12,14 @@
     </style>  
 </head>  
 <body>  
-    <div id="root"></div>  
-    <script type="text/babel" src="app.js"></script>  
+    <h1>Available Time Collector</h1>  
+    <input type="date" id="date">  
+    <input type="time" id="startTime">  
+    <input type="time" id="endTime">  
+    <input type="text" id="participants" placeholder="Participants (optional)">  
+    <button onclick="addTimeSlot()">Add Time Slot</button>  
+    <ul id="timeSlotList"></ul>  
+    <textarea id="output" rows="10" cols="50" readonly></textarea>  
+    <script src="app.js"></script>  
 </body>  
 </html>
