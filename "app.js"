@@ -1,9 +1,3 @@
-console.log("App.js is loaded and running");  
-document.addEventListener('DOMContentLoaded', (event) => {  
-    console.log("DOM fully loaded and parsed");  
-    document.body.style.backgroundColor = '#f0f0f0';  
-});  
-console.log("App.js is loaded!");  
 let timeSlots = [];  
 
 function addTimeSlot() {  
@@ -16,15 +10,21 @@ function addTimeSlot() {
         timeSlots.push({ date, startTime, endTime, participants });  
         updateDisplay();  
         clearInputs();  
+    } else {  
+        alert("Please fill in date, start time, and end time.");  
     }  
 }  
 
 function updateDisplay() {  
     const list = document.getElementById('timeSlotList');  
     list.innerHTML = '';  
-    timeSlots.forEach(slot => {  
+    timeSlots.forEach((slot, index) => {  
         const li = document.createElement('li');  
         li.textContent = `${slot.date} ${slot.startTime} - ${slot.endTime} ${slot.participants ? `(${slot.participants})` : ''}`;  
+        const deleteButton = document.createElement('button');  
+        deleteButton.textContent = 'Delete';  
+        deleteButton.onclick = () => deleteTimeSlot(index);  
+        li.appendChild(deleteButton);  
         list.appendChild(li);  
     });  
 
@@ -43,4 +43,12 @@ function clearInputs() {
     document.getElementById('startTime').value = '';  
     document.getElementById('endTime').value = '';  
     document.getElementById('participants').value = '';  
-}
+}  
+
+function deleteTimeSlot(index) {  
+    timeSlots.splice(index, 1);  
+    updateDisplay();  
+}  
+
+// 初始化显示  
+updateDisplay();
