@@ -1,44 +1,40 @@
-function App() {  
-    const [date, setDate] = React.useState('');  
-    const [startTime, setStartTime] = React.useState('');  
-    const [endTime, setEndTime] = React.useState('');  
-    const [participants, setParticipants] = React.useState('');  
-    const [timeSlots, setTimeSlots] = React.useState([]);  
+let timeSlots = [];  
 
-    const addTimeSlot = () => {  
-        if (date && startTime && endTime) {  
-            setTimeSlots([...timeSlots, { date, startTime, endTime, participants }]);  
-            setDate('');  
-            setStartTime('');  
-            setEndTime('');  
-            setParticipants('');  
-        }  
-    };  
+function addTimeSlot() {  
+    const date = document.getElementById('date').value;  
+    const startTime = document.getElementById('startTime').value;  
+    const endTime = document.getElementById('endTime').value;  
+    const participants = document.getElementById('participants').value;  
 
-    const generateText = () => {  
-        return timeSlots.map(slot =>   
-            `Date: ${slot.date}\nTime: ${slot.startTime} - ${slot.endTime}\nParticipants: ${slot.participants || 'None'}\n\n`  
-        ).join('');  
-    };  
-
-    return (  
-        <div>  
-            <h1>Available Time Collector</h1>  
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />  
-            <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />  
-            <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />  
-            <input type="text" value={participants} onChange={(e) => setParticipants(e.target.value)} placeholder="Participants (optional)" />  
-            <button onClick={addTimeSlot}>Add Time Slot</button>  
-            <ul>  
-                {timeSlots.map((slot, index) => (  
-                    <li key={index}>  
-                        {slot.date} {slot.startTime} - {slot.endTime} {slot.participants && `(${slot.participants})`}  
-                    </li>  
-                ))}  
-            </ul>  
-            <textarea readOnly value={generateText()} rows="10" cols="50" />  
-        </div>  
-    );  
+    if (date && startTime && endTime) {  
+        timeSlots.push({ date, startTime, endTime, participants });  
+        updateDisplay();  
+        clearInputs();  
+    }  
 }  
 
-ReactDOM.render(<App />, document.getElementById('root'));
+function updateDisplay() {  
+    const list = document.getElementById('timeSlotList');  
+    list.innerHTML = '';  
+    timeSlots.forEach(slot => {  
+        const li = document.createElement('li');  
+        li.textContent = `${slot.date} ${slot.startTime} - ${slot.endTime} ${slot.participants ? `(${slot.participants})` : ''}`;  
+        list.appendChild(li);  
+    });  
+
+    const output = document.getElementById('output');  
+    output.value = generateText();  
+}  
+
+function generateText() {  
+    return timeSlots.map(slot =>   
+        `Date: ${slot.date}\nTime: ${slot.startTime} - ${slot.endTime}\nParticipants: ${slot.participants || 'None'}\n\n`  
+    ).join('');  
+}  
+
+function clearInputs() {  
+    document.getElementById('date').value = '';  
+    document.getElementById('startTime').value = '';  
+    document.getElementById('endTime').value = '';  
+    document.getElementById('participants').value = '';  
+}
